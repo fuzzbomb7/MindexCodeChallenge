@@ -13,7 +13,7 @@ namespace CodeChallenge.Config
         {
             builder.Services.AddDbContext<EmployeeContext>(options =>
             {
-                options.UseLazyLoadingProxies().UseInMemoryDatabase(DB_NAME);
+                options.UseInMemoryDatabase(DB_NAME);
             });
         }
     }

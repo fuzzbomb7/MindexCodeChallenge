@@ -74,8 +74,18 @@ namespace CodeChallenge.Services
         {
             foreach (var report in employee.DirectReports)
             {
-                totalReports++;
-                if (report.DirectReports is not null) CountReports(report, totalReports);
+				totalReports++;
+
+                // Copy the foreach iterator variable to a new variable
+				Employee currentReport = report;
+
+                // Refetch employee with direct reports
+				if (currentReport.DirectReports is null)
+					currentReport = _employeeRepository.GetById(currentReport.EmployeeId);
+
+                // Use recursion to count sub-reports
+				if (currentReport.DirectReports.Count > 0) 
+                    totalReports = CountReports(currentReport, totalReports);
             }
             return totalReports;
         }
