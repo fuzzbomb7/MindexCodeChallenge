@@ -89,5 +89,25 @@ namespace CodeChallenge.Services
             }
             return totalReports;
         }
+
+        public Compensation AddCompensation(Compensation compensation)
+        {
+            if(compensation != null)
+            {
+                _employeeRepository.AddCompensation(compensation);
+                _employeeRepository.SaveAsync().Wait();
+            }
+            return compensation;
+        }
+
+        public Compensation GetCompensation(string id)
+        {
+            if(!string.IsNullOrEmpty(id))
+            {
+                return _employeeRepository.GetCompensation(id);
+            }
+
+            return null;
+        }
     }
 }

@@ -73,5 +73,28 @@ namespace CodeChallenge.Controllers
 
             return Ok(reportingStructure);
 		}
+
+        [HttpGet("compensation/{id}", Name = "getCompensation")]
+        public IActionResult GetCompensation(String id)
+        {
+            _logger.LogDebug($"Received compensation request for '{id}");
+
+            var compensation = _employeeService.GetCompensation(id);
+
+            if(compensation == null)
+                return NotFound();
+
+            return Ok(compensation);
+        }
+
+        [HttpPost("compensation")]
+        public IActionResult AddCompensation(Compensation compensation)
+        {
+            _logger.LogDebug($"Received compensation add request for '{compensation.EmployeeId}'");
+
+             var addCompensation = _employeeService.AddCompensation(compensation);
+
+            return CreatedAtRoute("getCompensation", new { id = addCompensation.EmployeeId }, addCompensation);
+        }
     }
 }

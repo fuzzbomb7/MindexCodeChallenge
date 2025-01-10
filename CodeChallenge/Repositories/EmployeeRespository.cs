@@ -34,6 +34,17 @@ namespace CodeChallenge.Repositories
                 .SingleOrDefault(e => e.EmployeeId == id);
         }
 
+        public Compensation AddCompensation(Compensation compensation)
+        {
+            _employeeContext.Compensation.Add(compensation);
+            return compensation;
+        }
+
+        public Compensation GetCompensation(string id)
+        {
+            return _employeeContext.Compensation.FirstOrDefault(c => c.EmployeeId == id);
+        }
+
         public Task SaveAsync()
         {
             return _employeeContext.SaveChangesAsync();
